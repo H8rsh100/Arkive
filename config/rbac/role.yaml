@@ -1,0 +1,55 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: arkive-manager-role
+rules:
+  - apiGroups:
+      - backup.arkive.io
+    resources:
+      - databasebackups
+      - databaserestores
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - backup.arkive.io
+    resources:
+      - databasebackups/status
+      - databaserestores/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - backup.arkive.io
+    resources:
+      - databasebackups/finalizers
+      - databaserestores/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - batch
+    resources:
+      - cronjobs
+      - jobs
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
