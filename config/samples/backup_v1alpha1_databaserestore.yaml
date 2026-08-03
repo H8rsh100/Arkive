@@ -1,0 +1,15 @@
+apiVersion: backup.arkive.io/v1alpha1
+kind: DatabaseRestore
+metadata:
+  name: restore-prod-2026-08-01
+  namespace: default
+spec:
+  sourceBackupObjectKey: "postgres-daily-backup/2026-08-01T020000Z.sql.gz"
+  targetDatabase:
+    host: postgres-service-restored
+    port: 5432
+    name: myapp_db_restored
+    credentialsSecret:
+      name: postgres-credentials
+      usernameKey: username
+      passwordKey: password

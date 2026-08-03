@@ -1,0 +1,24 @@
+apiVersion: backup.arkive.io/v1alpha1
+kind: DatabaseBackup
+metadata:
+  name: postgres-daily-backup
+  namespace: default
+spec:
+  database:
+    host: postgres-service
+    port: 5432
+    name: myapp_db
+    credentialsSecret:
+      name: postgres-credentials
+      usernameKey: username
+      passwordKey: password
+  schedule: "0 2 * * *"
+  retention:
+    count: 7
+  destination:
+    type: s3
+    bucket: my-backup-bucket
+    region: us-east-1
+    prefix: "postgres-daily-backup/"
+    deleteOnResourceDeletion: false
+  suspend: false
